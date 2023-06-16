@@ -1,0 +1,91 @@
+------------------    CRIANDO O EXECUTAVEL
+
+﹛#﹜ - Entre neste Site e baixe o baixe Node.js
+https://nodejs.org/en
+
+﹛#﹜ - Depois de ter instaldo:
+Abra a pasta do arquivo, e abra o terminal
+node -v   | ---> versao
+
+﹛#﹜ - Digite nesta ordem:
+npm install   |--> Instala as dependências do projeto listadas no arquivo package.json.
+
+- CRIE PASTA "streamlit_app" e coloque seu app la dentro com o nome streamlit_app.py
+
+npm rum dump streamlit_app -- -r requirements.txt	 |--> Atualiza todos modulos no req.. para o App e se tiver o pandas ou cvs etc... colque dpois do .py
+
+﹛#﹜ - Atualizando e instalando dependência:
+npm install @stlite/desktop@latest	|--> atualizar essa dependência para a versão mais recent
+npm install cross-env --save-dev    |--> instala cross-env	
+npm list cross-env   |--> Ver se foi realmente instalado
+
+npm install electron --save-dev   |--> Instala o pacote Electron como uma dependência de desenvolvimento para o projeto.
+npm install --save-dev electron@latest	    |--> atualiza o electron
+
+
+﹛#﹜ - Abre o Arquivo em Uma tela teste:
+Executa um script personalizado chamado serve definido no arquivo package.json, que provavelmente inicia o servidor para o aplicativo.
+npm start  (ou)  npm run servewindows  (ou)  npm run serve  (ou)  npx electron . 
+
+
+* atenção se caso tiver problema com o "localhost:3000"!
+-entre neste caminho = build/electron/main.js
+-e troque = "http://localhost:3000/" por "http://localhost:8502/" ou pela host desejada
+-entre no arquivo package.json : e altere  "start": "electron .",  por ' "start": "cross-env ELECTRON_START_URL=http://localhost:8502 electron . '
+
+﹛#﹜ -  E FINALMENTE O EXECUTAVEL:
+npm run dist   |--> Executa um script personalizado chamado dist definido no arquivo package.json, que geralmente é usado para criar um pacote de distribuição do aplicativo.
+
+" E só olhar na pasta 'dist' e procurar pelo executavel do seu programa"
+
+﹛#﹜ - Se der algum outro erro:
+npm audit	|--> indica os erros
+npm audit fix --force	|--> concerta os erros
+
+
+﹛#﹜ -  Limitações:
+A navegação para recursos externos como st.markdown("[link](https://streamlit.io/)")não funciona para segurança. Consulte o nº 445 e informe-nos se houver casos de uso em que você precise usar esses links externos.
+
+'- Outros comando caso precise -'
+
+set NODE_ENV=production    |--> Este comando define a variável de ambiente NODE_ENV com o valor "production". A variável de ambiente NODE_ENV é frequentemente usada em aplicativos Node.js para indicar o ambiente de execução, como "development", "production" ou "test". Definir NODE_ENV como "production" geralmente ativa otimizações e configurações específicas para o ambiente de produção.
+npm install electron --save-dev    |--> Este comando instala o pacote electron como uma dependência de desenvolvimento do projeto. O electron é uma estrutura que permite criar aplicativos de desktop multiplataforma usando tecnologias web, como HTML, CSS e JavaScript.
+npm run servewindows    |--> Mais uma vez, parece haver um erro de digitação neste comando. Talvez seja npm run servewindows. Sem mais contexto sobre o que esse comando específico faz, não posso fornecer uma explicação precisa. Como mencionado anteriormente, o comando npm run é usado para executar scripts definidos no arquivo package.json do projeto.
+npm install cross-env --save-dev    |--> Este comando instala o pacote cross-env como uma dependência de desenvolvimento do projeto. O cross-env é usado para definir variáveis de ambiente de maneira consistente em diferentes plataformas, como mencionado anteriormente.
+
+--------------------- AQUI VC ENCONTRA MASI DETALHES DA ARVORE DO ARQUI JASON = package.json:
+{
+  "name": "winter",         # Define o nome do seu aplicativo como "winter".
+  "version": "0.1.0",       # Define a versão do seu aplicativo como "0.1.0".
+  "description": "My Electron Application",         # Descreve brevemente o seu aplicativo como "My Electron Application".
+  "author": "Seu Nome",         # Especifica o autor do aplicativo como "Seu Nome". Substitua por seu nome real.
+  "main": "./build/electron/main.js",       # Indica o caminho para o arquivo principal do seu aplicativo, que é "./build/electron/main.js".
+
+  "scripts": {      # Define vários scripts para automatizar tarefas.
+    "dump": "dump-stlite-desktop-artifacts",        # Executa o script "dump-stlite-desktop-artifacts".
+    "serve": "NODE_ENV="production" electron .",      # Executa o aplicativo em modo de produção.
+    "servewindows": "electron .",       # Executa o aplicativo no Windows.
+    "start": "cross-env ELECTRON_START_URL=http://localhost:8502 electron .",       # Inicia o aplicativo com a variável de ambiente "ELECTRON_START_URL" definida como "http://localhost:8502".
+    "pack": "electron-builder --dir",       # Empacota o aplicativo usando o "electron-builder" no modo de diretório.
+    "dist": "electron-builder",         # Empacota o aplicativo usando o "electron-builder" no modo de distribuição.
+    "postinstall": "electron-builder install-app-deps"      # Executa o "electron-builder install-app-deps" após a instalação do pacote.
+  },
+  "build": {       # Configura as opções de compilação e empacotamento do aplicativo.
+    "files": [      # Define os arquivos a serem incluídos no pacote final, usando o padrão "build/**/*".
+      "build/**/*"
+    ],
+    "directories": {        # Configura os diretórios relacionados à construção do aplicativo.
+      "buildResources": "assets"        # Define o diretório de recursos de construção como "assets".
+    },
+    "win": {        # Configura as opções específicas para o ambiente Windows.
+      "target": "portable",         # Define o tipo de empacotamento como "portable".
+      "icon": "assets/icon.ico"         # Especifica o ícone do aplicativo como "assets/icon.ico".
+    }
+  },
+  "devDependencies": {      # Lista as dependências de desenvolvimento do projeto.
+    "@stlite/desktop": "^0.22.2",
+    "cross-env": "^7.0.3",
+    "electron": "^22.0.0",
+    "electron-builder": "^23.6.0"
+  }
+} 
